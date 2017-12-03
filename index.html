@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="video-js.css">
+    <!-- if[IE 8] -->
+    <script src="videojs-ie8.min.js"></script>
+    <!--[endif]-->
+    <style media="screen">
+        body {
+            background-color: #191919
+        }
+
+        .m {
+            width: 740px;
+            height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="m">
+        <video id="my-video" class="video-js vjs-default-skin vjs-fluid" controls width="740" height="400">
+			<p class="vjs-no-js">
+			  To view this video please enable JavaScript, and consider upgrading to a web browser that
+			  <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+			</p>
+		  </video>
+    </div>
+    <script src="jquery.min.js"></script>
+    <script src="video.min.js"></script>
+    <script type="text/javascript">
+        videojs.options.flash.swf = "video-js.swf";
+        let setsrc = "http://jq22com.qiniudn.com/jq22-sp.mp4";
+        let str = `<source src="${setsrc}" type="video/mp4">`;
+        $('#my-video').append(str);
+        let player = videojs("my-video", {fluid: true}, function() {
+
+        });
+        player.on('play', function() {
+            console.log('开始/恢复播放');
+        });
+        player.on('pause', function() {
+            console.log('暂停播放');
+        });
+        player.on('ended', function() {
+            console.log('结束播放');
+        });
+        player.on('timeupdate', function() {
+           console.log(player.currentTime());
+       });
+       var whatHasBeenBuffered = player.buffered();
+       console.log('缓存时间',whatHasBeenBuffered);
+       var howMuchIsDownloaded = player.bufferedPercent();
+       console.log('缓存百分比',howMuchIsDownloaded);
+    </script>
+</body>
+
+</html>
